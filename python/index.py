@@ -62,7 +62,7 @@ def check(input):
         
     #imports another script
     elif input == ".hangman":
-        import_lib("https://dev.roxcelic.love/python/hangman.txt")
+        import_lib("https://dev.roxcelic.love/python/hangman.py")
 
     #ends the script
     elif input == ".end": return False

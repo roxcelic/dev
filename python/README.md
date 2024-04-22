@@ -6,7 +6,7 @@ import urllib.request
 print("if you would like to know more about this file and script please check out \"https://github.com/roxcelic/dev/python/README.md \" ")
 input = input("- running this will download a file called script.py to your computer in this directory, is that okay (y/n) -")
 if input.lower() == "y":
-    url = "https://dev.roxcelic.love/python/index.txt"
+    url = "https://dev.roxcelic.love/python/index.py"
     file_name = "script.py"
     urllib.request.urlretrieve(url, file_name)
 
