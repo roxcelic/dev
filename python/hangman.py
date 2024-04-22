@@ -1,1 +1,1 @@
-print("hangman")
+print("welcome to hangman (this is just an example script, it will close out of this now)")

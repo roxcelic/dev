@@ -23,6 +23,7 @@ help_Text = '''
 #basic dicts
 command_Text = {
     "?help": "this command prints the help literal giving the user information",
+    "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
     ".end": "this command ends the script"
 }
