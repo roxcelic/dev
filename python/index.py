@@ -5,14 +5,19 @@ import urllib.request
 cont = True
 
 #basic Literal values
+intro_Text = '''
+    hello, welcome to my program and congrats on using it.
+    after each line it will print "-" 15 times to show you that you are out of any command menu
+    all of this code is fully open source if you would like to check whats happening at "https://github.com/roxcelic/dev"
+    
+    If you need any help please use the '?help' command
+'''
+
 help_Text = '''
     here is some basic information about this script:
         this is for me (roxcelic) to share my python finds and fun, it is fully open source and i am happy to share the code
 
         here are some commands you can use to get started:
-'''
-intro_Text = '''
-    hello, welcome to my program and congrats on using it. If you need any help please use the '?help' command
 '''
 
 #basic dicts
@@ -24,10 +29,13 @@ command_Text = {
 
 #imports
 def import_lib(url):
-    url = url
-    file_name = "extra.py"
-    urllib.request.urlretrieve(url, file_name)
-    import extra
+    local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
+    if local_input.lower() == "y":
+        url = url
+        file_name = "extra.py"
+        urllib.request.urlretrieve(url, file_name)
+        import extra
+    else: print("- the option is always available -")
 
 #commands
 def check(input):
@@ -65,5 +73,6 @@ def check(input):
 #runs the code
 print(intro_Text)
 while cont:
+    print("-" *15)
     ci = input("-")
     cont = check(ci);
