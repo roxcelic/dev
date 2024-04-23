@@ -45,5 +45,7 @@ thirdword = [
     "up to", "via"
 ]
 
+plugin_active_message = "welcome to the end"
+
 def dem():
     print("endmessage: " + firsword[random.randint(0,len(firsword))] + " " + secondword[random.randint(0,len(secondword))] + " " + thirdword[random.randint(0,len(thirdword))] + " " + "the" + " " + secondword[random.randint(0,len(secondword))])

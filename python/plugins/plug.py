@@ -3,7 +3,7 @@ command_Text = {
     ".hey": "returns plugin status"
 }
 
-#this is the message that will print when the plugin is put in the active state
+#this is the message that will print when the plugin is put in the active state at the start of the script
 plugin_active_message = "hey"
 
 #add the commands here

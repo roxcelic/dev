@@ -154,6 +154,12 @@ def check(ci):
 print(intro_Text)
 print("attempting to import the required data to update the config data...")
 import_lib("config.py")
+
+for path in plugin_paths:
+    module = import_from_path(path)
+    if hasattr(module, 'plugin_active_message'):
+        print(module.plugin_active_message)
+
 while cont:
     print("-" *15)
     for path in plugin_paths:
