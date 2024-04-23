@@ -47,17 +47,13 @@ def import_lib(url):
     else: print("- the option is always available -")
 
 def import_plugin(url):
-    global plugin_is_active
-    if (plugin_is_active is False):
-        local_input = input("- this will download the python file for the plugin and run it, please be safe with the code you download, would you like to continue? (y/n) -")
-        if local_input.lower() == "y":
-            file_name = "plug.py"
-            urllib.request.urlretrieve(url, file_name)
-            globals()["plug"] = __import__("plug")
+    local_input = input("- this will download the python file for the plugin and run it, please be safe with the code you download, would you like to continue? (y/n) -")
+    if local_input.lower() == "y":
+        file_name = "plug.py"
+        urllib.request.urlretrieve(url, file_name)
+        globals()["plug"] = __import__("plug")
 
-        else: print("- the option is always available -")
-    else:
-        print("sorry but a plugin is already loaded, please exit the script to load a different one")
+    else: print("- the option is always available -")
 
 #commands
 def check(ci):
@@ -99,13 +95,17 @@ def check(ci):
             print("sorry but a plugin is already loaded, please exit the script to load a different one")
 
     elif ci == ".local_plugin":
-        local_input = input("please enter the name and location of the file -")
-        shutil.copy(local_input, "plug.py")
-        globals()["plug"] = __import__("plug")
-        print("loading plugin data...")
-        command_Text.update(plug.command_Text)
-        plugin_is_active = True
-        print("plugin loaded, to check new content run '?help' to list all commands")
+        global plugin_is_active
+        if (plugin_is_active is False):
+            local_input = input("please enter the name and location of the file -")
+            shutil.copy(local_input, "plug.py")
+            globals()["plug"] = __import__("plug")
+            print("loading plugin data...")
+            command_Text.update(plug.command_Text)
+            plugin_is_active = True
+            print("plugin loaded, to check new content run '?help' to list all commands")
+        else:
+            print("sorry but a plugin is already loaded, please exit the script to load a different one")
 
 
     #imports another script
