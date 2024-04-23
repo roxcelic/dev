@@ -34,13 +34,7 @@ def install_plugins(url):
             for item in file_paths:
                 file.write(f"{item}\n")
 
-print("type 'delete' if you would like to delete a plugin")
-ci = input("link- ")
-if ci == "delete":
-    print("pick the file you would like to delete")
-    for item in plugin_paths:
-        print(item)
-    local_ci = input("-")
+def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
         file_paths.remove(folder_name + local_ci[8:].replace("/", "."))
@@ -53,6 +47,21 @@ if ci == "delete":
         print("after deleting a plugin you may have to restart your client for it to update the help menu")
     else:
         print("sorry that plugin wasnt found")
+
+print("type 'delete' if you would like to delete a plugin or 'update' if you would like to update all of your plugins")
+ci = input("link- ")
+
+if ci == "delete":
+    print("pick the file you would like to delete")
+    for item in plugin_paths:
+        print(item)
+    local_ci = input("-")
+    delete_plugins(local_ci)
+
+elif ci == "update":
+    for item in plugin_paths:
+        delete_plugins(item)
+        install_plugins(item)
 
 else:
     install_plugins(ci)

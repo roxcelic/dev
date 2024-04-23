@@ -48,7 +48,6 @@ command_Text = {
     "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
     ".plugin": "allows you to install a 3rd party plugin",
-    ".local_plugin": "allows you to install a 3rd party plugin from local storage",
     ".end": "this command ends the script"
 }
 
