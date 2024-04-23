@@ -63,21 +63,21 @@ def import_from_path(path):
     spec.loader.exec_module(module)
     return module
 
-def import_lib(url):
-    local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
-    if local_input.lower() == "y":
-        url = "https://dev.roxcelic.love/python/scripts/" + url
-        file_name = "extra.py"
-        urllib.request.urlretrieve(url, file_name)
-        import extra
-    else: print("- the option is always available -")
-
 def import_from_path(path):
     module_name = os.path.basename(path).replace('.py', '')
     spec = importlib.util.spec_from_file_location(module_name, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+def import_lib(url):
+    local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
+    if local_input.lower() == "y":
+        url = "https://dev.roxcelic.love/python/scripts/" + url
+        file_name = "extra.py"
+        urllib.request.urlretrieve(url, file_name)
+        import_from_path("extra.py")
+    else: print("- the option is always available -")
 
 #installs all loaded plugins
 if os.path.isfile("plugin.config"):
