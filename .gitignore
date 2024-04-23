@@ -6,3 +6,5 @@ python/extra.py
 python/demo.py
 python/test.py
 python/main.config
+python/plugin.config
+python/pluginloc.config

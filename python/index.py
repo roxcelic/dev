@@ -1,5 +1,6 @@
 #all libs
 import urllib.request
+import importlib.util
 import shutil
 import os
 
@@ -7,6 +8,8 @@ import os
 def clean():
     if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
         shutil.rmtree("__pycache__")
+    if os.path.exists("plugins") and os.path.isdir("plugins"):
+        shutil.rmtree("plugins")
     if os.path.exists("script.py"):
             os.remove("script.py")
     if os.path.exists("extra.py"):
@@ -15,6 +18,9 @@ def clean():
             os.remove("plug.py")
 
 clean()
+
+#list of plugins
+plugin_paths = []
 
 #this keeps the script running
 cont = True
@@ -50,6 +56,13 @@ command_Text = {
 
 #imports
 
+def import_from_path(path):
+    module_name = os.path.basename(path).replace('.py', '')
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 def import_lib(url):
     local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
     if local_input.lower() == "y":
@@ -59,14 +72,22 @@ def import_lib(url):
         globals()["extra"] = __import__("extra")
     else: print("- the option is always available -")
 
-def import_plugin(url):
-    local_input = input("- this will download the python file for the plugin and run it, please be safe with the code you download, would you like to continue? (y/n) -")
-    if local_input.lower() == "y":
-        file_name = "plug.py"
-        urllib.request.urlretrieve(url, file_name)
-        globals()["plug"] = __import__("plug")
+def import_from_path(path):
+    module_name = os.path.basename(path).replace('.py', '')
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
-    else: print("- the option is always available -")
+#installs all loaded plugins
+if os.path.isfile("plugin.config"):
+    with open('plugin.config', 'r') as file:
+        plugin_paths = [line.strip() for line in file]
+                
+for path in plugin_paths:
+    module = import_from_path(path)
+    if hasattr(module, 'check'):
+        command_Text.update(module.command_Text)
 
 #commands
 def check(ci):
@@ -96,29 +117,7 @@ def check(ci):
     
     #allows plugins to be inputted
     elif ci == ".plugin":
-        global plugin_is_active
-        if (plugin_is_active is False):
-            local_input = input("please input the url to your plugin - ")
-            import_plugin(local_input)
-            print("loading plugin data...")
-            command_Text.update(plug.command_Text)
-            plugin_is_active = True
-            print("plugin loaded, to check new content run '?help' to list all commands")
-        else:
-            print("sorry but a plugin is already loaded, please exit the script to load a different one")
-
-    elif ci == ".local_plugin":
-        if (plugin_is_active is False):
-            local_input = input("please enter the name and location of the file -")
-            shutil.copy(local_input, "plug.py")
-            globals()["plug"] = __import__("plug")
-            print("loading plugin data...")
-            command_Text.update(plug.command_Text)
-            plugin_is_active = True
-            print("plugin loaded, to check new content run '?help' to list all commands")
-        else:
-            print("sorry but a plugin is already loaded, please exit the script to load a different one")
-
+        import_lib("plugin.py")
 
     #imports another script
     elif ci == ".hangman":
@@ -126,8 +125,15 @@ def check(ci):
         import_lib("hangman.py")
 
     else:
-        if (plugin_is_active):
-            plug.check(ci)
+        global plugin_paths
+        if os.path.isfile("plugin.config"):
+            with open('plugin.config', 'r') as file:
+                plugin_paths = [line.strip() for line in file]
+
+        for path in plugin_paths:
+            module = import_from_path(path)
+            if hasattr(module, 'check'):
+                module.check(ci)
 
     #always returns true unless the script is ended
     return True
