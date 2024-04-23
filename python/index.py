@@ -82,6 +82,7 @@ for path in plugin_paths:
 
 #commands
 def check(ci):
+    global plugin_paths
 
     #ends the script
     if ci == ".end": return False
@@ -109,10 +110,6 @@ def check(ci):
     #allows plugins to be inputted
     elif ci == ".plugin":
         import_lib("plugin.py")
-        for path in plugin_paths:
-            module = import_from_path(path)
-            if hasattr(module, 'check'):
-                command_Text.update(module.command_Text)
         
 
     #imports another script
@@ -120,7 +117,6 @@ def check(ci):
         print("hanf")
         import_lib("hangman.py")
 
-    global plugin_paths
     if os.path.isfile("plugin.config"):
         with open('plugin.config', 'r') as file:
             plugin_paths = [line.strip() for line in file]
@@ -129,6 +125,11 @@ def check(ci):
         module = import_from_path(path)
         if hasattr(module, 'check'):
             module.check(ci)
+
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'check'):
+            command_Text.update(module.command_Text)
 
     #always returns true unless the script is ended
     return True
