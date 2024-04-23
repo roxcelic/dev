@@ -2,6 +2,7 @@
 python/__pycache__/
 python/scripts/__pycache__/
 python/plug.py
+python/extra.py
 python/demo.py
 python/test.py
 python/main.config

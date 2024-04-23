@@ -43,7 +43,7 @@ def import_lib(url):
         url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = "extra.py"
         urllib.request.urlretrieve(url, file_name)
-        import extra
+        globals()["extra"] = __import__("extra")
     else: print("- the option is always available -")
 
 def import_plugin(url):
@@ -103,10 +103,12 @@ def check(ci):
 
     #imports another script
     elif ci == ".hangman":
+        print("hanf")
         import_lib("hangman.py")
 
-    elif (plugin_is_active):
-        plug.check(ci)
+    else:
+        if (plugin_is_active):
+            plug.check(ci)
 
     #always returns true unless the script is ended
     return True
