@@ -10,3 +10,19 @@ plugin_active_message = "hey"
 def check(input):
     global plugin_active_message
     if input == ".hey": print(print(plugin_active_message))
+
+#ran at the start of the script
+def start():
+    print("start")
+
+#ran every run through at the start of the main check
+def update():
+    print("update")
+
+#ran every run through of the main loop
+def dem():
+    print("dem")
+
+#ran through at the end of the script
+def end():
+    print("end")

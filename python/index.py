@@ -62,6 +62,7 @@ def import_from_path(path):
     spec.loader.exec_module(module)
     return module
 
+
 def import_lib(url):
     local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
     if local_input.lower() == "y":
@@ -81,8 +82,18 @@ for path in plugin_paths:
     if hasattr(module, 'command_Text'):
         command_Text.update(module.command_Text)
 
+for path in plugin_paths:
+    module = import_from_path(path)
+    if hasattr(module, 'start'):
+        module.start()
 #commands
 def check(ci):
+
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'update'):
+            module.update()
+
     global plugin_paths
 
     #ends the script
@@ -141,7 +152,15 @@ print("attempting to import the required data to update the config data...")
 import_lib("config.py")
 while cont:
     print("-" *15)
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'dem'):
+            module.dem()
     ci = input("-")
     cont = check(ci);
 
+for path in plugin_paths:
+    module = import_from_path(path)
+    if hasattr(module, 'end'):
+        module.end()
 clean()
