@@ -23,3 +23,5 @@ it downloads the file using 'urllib.request' which from my knoledge comes with m
 if you are uncomfortable with this in any way i understand, that being another reason why this code is completely public.
 
 so please, ENJOY!
+
+also feel free to modify the code any way youd like
