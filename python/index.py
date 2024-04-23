@@ -113,6 +113,7 @@ def check(ci):
 
 #runs the code
 print(intro_Text)
+print("attempting to import the required data to update the config data...")
 import_lib("config.py")
 while cont:
     print("-" *15)
@@ -120,8 +121,8 @@ while cont:
     cont = check(ci);
 
 #removes the files and data
-if os.path.exists("/__pycache__/") and os.path.isdir("/__pycache__/"):
-    shutil.rmtree("/__pycache__/")
+if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
+    shutil.rmtree("__pycache__")
 if os.path.exists("script.py"):
         os.remove("script.py")
 if os.path.exists("extra.py"):

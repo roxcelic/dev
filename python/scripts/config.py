@@ -1,29 +1,31 @@
 import os
 
 config_Content = {
-    "version": "0.0.02",
-    "build_num": "1"
+    "version": "0.0.03",
+    "build_num": "2"
 }
 
 whats_New = {
     0 : "initial creation",
-    1 : "plugins are now installable"
+    1 : "plugins are now installable",
+    2 : "the script cleans itself up after finishing"
 }
 
 version_Content = {
     "0.0.01": ["0"],
-    "0.0.02": ["1"]
+    "0.0.02": ["1"],
+    "0.0.03": ["2"]
 }
 
-current_version = "0.0.01"
+current_version = "0.0.03"
 
 filename = 'main.config'
 
 def whatsnew(item):
     print("-"*5, "whats new", "-"*5)
     for key, value in whats_New.items():
-        if key <= int(item):
-            print(f"{value}")
+        if key >= int(item):
+            print(whats_New[key])
 
 def write():
     with open(filename, 'w') as file:
