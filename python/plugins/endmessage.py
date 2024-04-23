@@ -45,5 +45,5 @@ thirdword = [
     "up to", "via"
 ]
 
-def dem(input):
+def dem():
     print("endmessage: " + firsword[random.randint(0,len(firsword))] + " " + secondword[random.randint(0,len(secondword))] + " " + thirdword[random.randint(0,len(thirdword))] + " " + "the" + " " + secondword[random.randint(0,len(secondword))])
