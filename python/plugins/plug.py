@@ -8,5 +8,4 @@ plugin_active_message = "hey"
 
 #add the commands here
 def check(input):
-    print(plugin_active_message)
-    if input == ".hey": print("plugin is active")
+    if input == ".hey": print(print(plugin_active_message))
