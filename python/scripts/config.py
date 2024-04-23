@@ -1,16 +1,18 @@
 import os
 
 config_Content = {
-    "version": "0.0.01",
-    "build_num": "0"
+    "version": "0.0.02",
+    "build_num": "1"
 }
 
 whats_New = {
-    0 : "initial creation"
+    0 : "initial creation",
+    1 : "plugins are now installable"
 }
 
 version_Content = {
-    "0.0.01": ["0"]
+    "0.0.01": ["0"],
+    "0.0.02": ["1"]
 }
 
 current_version = "0.0.01"

@@ -1,13 +1,12 @@
 #all libs
 import urllib.request
+import shutil
 
 #this keeps the script running
 cont = True
 
 #this checks if a plugin is installed
 plugin_is_active = False
-#global plugin url
-plugin_url = "https://example.com/hellow"
 
 #basic Literal values
 intro_Text = '''
@@ -30,6 +29,8 @@ command_Text = {
     "?help": "this command prints the help literal giving the user information",
     "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
+    ".plugin": "allows you to install a 3rd party plugin",
+    ".local_plugin": "allows you to install a 3rd party plugin from local storage",
     ".end": "this command ends the script"
 }
 
@@ -54,7 +55,7 @@ def import_plugin(url):
     else: print("- the option is always available -")
 
 #commands
-def check(ci, plugin_is_active):
+def check(ci):
     #provides user assistance
     if ci == "?help":
         #prints the help Literal
@@ -77,18 +78,32 @@ def check(ci, plugin_is_active):
     
     #allows plugins to be inputted
     elif ci == ".plugin":
+        global plugin_is_active
         local_input = input("please input the url to your plugin - ")
         import_plugin(local_input)
-        import plug
         print("loading plugin data...")
         command_Text.update(plug.command_Text)
         plugin_is_active = True
         print("plugin loaded, to check new content run '?help' to list all commands")
 
+    elif ci == ".local_plugin":
+        local_input = input("please enter the name and location of the file -")
+        shutil.copy(local_input, "plug.py")
+        globals()["plug"] = __import__("plug")
+        print("loading plugin data...")
+        command_Text.update(plug.command_Text)
+        plugin_is_active = True
+        print("plugin loaded, to check new content run '?help' to list all commands")
+
+
     #imports another script
     elif ci == ".hangman":
         import_lib("hangman.py")
 
+    elif (plugin_is_active):
+        print("checking plugin for data")
+        plug.check(ci)
+        
     #ends the script
     elif ci == ".end": return False
 
@@ -101,4 +116,4 @@ import_lib("config.py")
 while cont:
     print("-" *15)
     ci = input("-")
-    cont = check(ci, plugin_is_active);
+    cont = check(ci);
