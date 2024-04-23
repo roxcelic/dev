@@ -88,6 +88,12 @@ for path in plugin_paths:
         module.start()
 #commands
 def check(ci):
+
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'update'):
+            module.update()
+
     global plugin_paths
 
     for path in plugin_paths:
