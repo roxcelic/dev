@@ -69,7 +69,7 @@ def import_lib(url):
         url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = "extra.py"
         urllib.request.urlretrieve(url, file_name)
-        globals()["extra"] = __import__("extra")
+        import extra
     else: print("- the option is always available -")
 
 def import_from_path(path):
