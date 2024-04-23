@@ -8,6 +8,8 @@ import os
 def clean():
     if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
         shutil.rmtree("__pycache__")
+    if os.path.exists("plugins/__pycache__") and os.path.isdir("plugins/__pycache__"):
+        shutil.rmtree("plugins/__pycache__")
     if os.path.exists("script.py"):
             os.remove("script.py")
     if os.path.exists("extra.py"):
