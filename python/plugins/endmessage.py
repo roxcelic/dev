@@ -46,4 +46,4 @@ thirdword = [
 ]
 
 def check(input):
-    print("endmessage: " + firsword[random.randint(0,len(firsword))] + secondword[random.randint(0,len(secondword))] + thirdword[random.randint(0,len(thirdword))] + "the" + firsword[random.randint(0,len(firsword))])
+    print("endmessage: " + firsword[random.randint(0,len(firsword))] + " " + secondword[random.randint(0,len(secondword))] + " " + thirdword[random.randint(0,len(thirdword))] + " " + "the" + " " + firsword[random.randint(0,len(firsword))])
