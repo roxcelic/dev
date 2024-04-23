@@ -1,6 +1,7 @@
 #all libs
 import urllib.request
 import shutil
+import os
 
 #this keeps the script running
 cont = True
@@ -117,3 +118,13 @@ while cont:
     print("-" *15)
     ci = input("-")
     cont = check(ci);
+
+#removes the files and data
+if os.path.exists("/__pycache__/") and os.path.isdir("/__pycache__/"):
+    shutil.rmtree("/__pycache__/")
+if os.path.exists("script.py"):
+        os.remove("script.py")
+if os.path.exists("extra.py"):
+        os.remove("extra.py")
+if os.path.exists("plug.py"):
+        os.remove("plug.py")
