@@ -3,6 +3,19 @@ import urllib.request
 import shutil
 import os
 
+#removes all 'bad' data
+def clean():
+    if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
+        shutil.rmtree("__pycache__")
+    if os.path.exists("script.py"):
+            os.remove("script.py")
+    if os.path.exists("extra.py"):
+            os.remove("extra.py")
+    if os.path.exists("plug.py"):
+            os.remove("plug.py")
+
+clean()
+
 #this keeps the script running
 cont = True
 
@@ -95,7 +108,6 @@ def check(ci):
             print("sorry but a plugin is already loaded, please exit the script to load a different one")
 
     elif ci == ".local_plugin":
-        global plugin_is_active
         if (plugin_is_active is False):
             local_input = input("please enter the name and location of the file -")
             shutil.copy(local_input, "plug.py")
@@ -129,12 +141,4 @@ while cont:
     ci = input("-")
     cont = check(ci);
 
-#removes the files and data
-if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
-    shutil.rmtree("__pycache__")
-if os.path.exists("script.py"):
-        os.remove("script.py")
-if os.path.exists("extra.py"):
-        os.remove("extra.py")
-if os.path.exists("plug.py"):
-        os.remove("plug.py")
+clean()
