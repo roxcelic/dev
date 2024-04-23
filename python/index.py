@@ -4,6 +4,9 @@ import urllib.request
 #this keeps the script running
 cont = True
 
+#this checks if a plugin is installed
+plugin_is_active = False
+
 #basic Literal values
 intro_Text = '''
     hello, welcome to my program and congrats on using it.
@@ -32,12 +35,19 @@ command_Text = {
 def import_lib(url):
     local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
     if local_input.lower() == "y":
-        url = url
+        url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = "extra.py"
         urllib.request.urlretrieve(url, file_name)
         import extra
     else: print("- the option is always available -")
 
+def import_plugin(url):
+    local_input = input("- this will download the python file for the plugin and run it, please be safe with the code you download, would you like to continue? (y/n) -")
+    if local_input.lower() == "y":
+        file_name = "plugin/plug.py"
+        urllib.request.urlretrieve(url, file_name)
+        import plugin.plug as plugin
+    else: print("- the option is always available -")
 #commands
 def check(input):
 
@@ -52,27 +62,39 @@ def check(input):
     #this is the help command which will return a value from command_Text relating to the command which was inquired about
     elif input[:6] == "?help(" and input[-1] == ")":
         #removes unessicary data
-        input = input.replace(input[:6], '')
+        input = input[6:]
         input = input[:-1]
 
         #checks if assistance can be provided (if the given value exists in the 'command_Text dict')
         if input in command_Text:
             print(command_Text[input])
         else:
-            print("sorry there is no help for command: ", input)
-        
+            print("sorry there is no help for command: ",'"',input,'"')
+    
+    #allows plugins to be inputted
+    elif input == ".plugin":
+        local_input = input("please input the url to your plugin - ")
+        import_plugin(local_input)
+        print("loading plugin data...")
+        command_Text.update(plugin.command_Text)
+        plugin_is_active = True
+        print("plugin loaded, to check new content run '?help' to list all commands")
+
     #imports another script
     elif input == ".hangman":
-        import_lib("https://dev.roxcelic.love/python/hangman.py")
+        import_lib("hangman.py")
 
     #ends the script
     elif input == ".end": return False
 
+    if (plugin_is_active):
+        plugin.check(input)
     #always returns true unless the script is ended
     return True
 
 #runs the code
 print(intro_Text)
+import_lib("config.py")
 while cont:
     print("-" *15)
     ci = input("-")

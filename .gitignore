@@ -1,3 +1,6 @@
-# test python file
+# test python files
 python/__pycache__/
+python/scripts/__pycache__/
+python/demo.py
 python/test.py
+python/main.config
