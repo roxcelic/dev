@@ -56,8 +56,12 @@ def import_plugin(url):
 
 #commands
 def check(ci):
+
+    #ends the script
+    if ci == ".end": return False
+
     #provides user assistance
-    if ci == "?help":
+    elif ci == "?help":
         #prints the help Literal
         print(help_Text)
         #prints commands and what they do
@@ -101,11 +105,7 @@ def check(ci):
         import_lib("hangman.py")
 
     elif (plugin_is_active):
-        print("checking plugin for data")
         plug.check(ci)
-        
-    #ends the script
-    elif ci == ".end": return False
 
     #always returns true unless the script is ended
     return True
