@@ -77,7 +77,7 @@ if os.path.isfile("plugin.config"):
                 
 for path in plugin_paths:
     module = import_from_path(path)
-    if hasattr(module, 'check'):
+    if hasattr(module, 'command_Text'):
         command_Text.update(module.command_Text)
 
 #commands
@@ -128,7 +128,7 @@ def check(ci):
 
     for path in plugin_paths:
         module = import_from_path(path)
-        if hasattr(module, 'check'):
+        if hasattr(module, 'command_Text'):
             command_Text.update(module.command_Text)
 
     #always returns true unless the script is ended

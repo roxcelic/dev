@@ -1,5 +1,4 @@
 import random
-
 firsword = [
     "quick", "lazy", "sleepy", "noisy", "hungry", "scary", "spooky", "silly",
     "messy", "lucky", "happy", "sad", "angry", "tiny", "huge", "giant",
