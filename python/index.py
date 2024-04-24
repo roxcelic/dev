@@ -25,6 +25,9 @@ plugin_paths = []
 #this keeps the script running
 cont = True
 
+#checks for concent
+concent = 0
+
 #this checks if a plugin is installed
 plugin_is_active = False
 
@@ -51,6 +54,7 @@ command_Text = {
     "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
     ".plugin": "allows you to install a 3rd party plugin",
+    ".concent": "applys concent automatically",
     ".end": "this command ends the script"
 }
 
@@ -65,7 +69,8 @@ def import_from_path(path):
 
 
 def import_lib(url):
-    local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
+    if concent == 1: local_input = "y"
+    else: local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
     if local_input.lower() == "y":
         url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = "extra.py"
@@ -110,6 +115,9 @@ for path in plugin_paths:
     if hasattr(module, 'start'):
         module.start()
 
+with open('main.config', 'r') as file:
+    concent = int([line.strip() for line in file][1])
+
 #commands
 def check(ci):
     global plugin_paths
@@ -149,6 +157,19 @@ def check(ci):
     elif ci == ".hangman":
         print("hanf")
         import_lib("hangman.py")
+
+    if ci == ".concent":
+        local_input = input("would you like to automatically give concent to all downloads? (n/y) ")
+        if local_input.lower() == "y":
+            concent = 1
+            with open('main.config',"r") as file:
+                localread = [line.strip() for line in file]
+            localread[2] = concent
+            with open('main.config',"w") as file:
+                for item in localread:
+                    file.write(item + "\n")
+                file.write()
+
 
     if os.path.isfile("plugin.config"):
         with open('plugin.config', 'r') as file:

@@ -1,8 +1,8 @@
 import os
 
 config_Content = {
-    "version": "0.0.11",
-    "build_num": "5"
+    "version": "0.0.12",
+    "build_num": "6"
 }
 
 whats_New = {
@@ -11,7 +11,8 @@ whats_New = {
     2 : "the script cleans itself up after finishing",
     3 : "support for multiple plugins",
     4 : "plugins are now deletable and are stored locally",
-    5 : "command list is now dynamically updated (but can still be improved)"
+    5 : "command list is now dynamically updated (but can still be improved)",
+    6 : "download concent can now be skipped"
 }
 
 version_Content = {
@@ -20,7 +21,8 @@ version_Content = {
     "0.0.03": ["2"],
     "0.0.04": ["3"],
     "0.0.10": ["4"],
-    "0.0.11": ["5"]
+    "0.0.11": ["5"],
+    "0.0.12": ["6","0"]
 }
 
 current_version = "0.0.11"
@@ -44,7 +46,7 @@ def config_check(conts):
     content = conts
     ver = content[0]
     if ver in version_Content:
-        if content[1:] == version_Content[ver]:
+        if content[1:][0] == version_Content[ver][0]:
             return True
         else: return False
     else: return False
