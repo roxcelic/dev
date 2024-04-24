@@ -116,7 +116,7 @@ for path in plugin_paths:
         module.start()
 
 with open('main.config', 'r') as file:
-    concent = int([line.strip() for line in file][1])
+    concent = int([line.strip() for line in file][2])
 
 #commands
 def check(ci):
@@ -168,7 +168,6 @@ def check(ci):
             with open('main.config',"w") as file:
                 for item in localread:
                     file.write(str(item) + "\n")
-                file.write()
 
 
     if os.path.isfile("plugin.config"):
