@@ -52,7 +52,7 @@ def install_plugins(url):
             file_name = folder_path + file_name
             urllib.request.urlretrieve(url, file_name)
             file_name = file_name.replace(os.getcwd(), "").replace("\\", "")
-            
+
             if file_name not in file_paths:
                 file_paths.append(file_name)
 
@@ -70,9 +70,7 @@ def install_plugins(url):
 def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
-        print(file_paths)
         file_paths.remove(folder_name + local_ci[8:].replace("/", "."))
-        print(file_paths)
 
         with open('pluginloc.config', 'w') as file:
             for item in plugin_paths:
