@@ -48,4 +48,4 @@ thirdword = [
 plugin_active_message = "welcome to the end"
 
 def dem():
-    print("endmessage: " + firsword[random.randint(0,len(firsword))] + " " + secondword[random.randint(0,len(secondword))] + " " + thirdword[random.randint(0,len(thirdword))] + " " + "the" + " " + secondword[random.randint(0,len(secondword))])
+    print("endmessage: " + random.choice(firsword) + " " + random.choice(secondword) + " " + random.choice(thirdword) + " the " + random.choice(secondword))

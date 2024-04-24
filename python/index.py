@@ -48,6 +48,7 @@ help_Text = '''
 command_Text = {
     "?help": "this command prints the help literal giving the user information",
     "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
+    "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
     ".plugin": "allows you to install a 3rd party plugin",
     ".end": "this command ends the script"
@@ -76,35 +77,36 @@ def import_lib(url):
 if os.path.isfile("plugin.config"):
     with open('plugin.config', 'r') as file:
         plugin_paths = [line.strip() for line in file]
-                
-for path in plugin_paths:
-    module = import_from_path(path)
-    if hasattr(module, 'command_Text'):
-        command_Text.update(module.command_Text)
 
 for path in plugin_paths:
     module = import_from_path(path)
     if hasattr(module, 'start'):
         module.start()
+
 #commands
 def check(ci):
     global plugin_paths
 
+    #runs the update function in all of the installed plugins
     for path in plugin_paths:
-        module = import_from_path(path)
-        if hasattr(module, 'update'):
-            module.update()
-
-    for path in plugin_paths:
-        module = import_from_path(path)
-        if hasattr(module, 'update'):
-            module.update()
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'update'):
+                module.update()
 
     #ends the script
     if ci == ".end": return False
 
     #provides user assistance
     elif ci == "?help":
+
+        command_Text2 = command_Text
+
+        for path in plugin_paths:
+            module = import_from_path(path)
+            if hasattr(module, 'command_Text'):
+                command_Text2.update(module.command_Text)
+
         #prints the help Literal
         print(help_Text)
         #prints commands and what they do
@@ -123,11 +125,14 @@ def check(ci):
         else:
             print("sorry there is no help for command: ",'"',ci,'"')
     
+    #runs the script walkthrough
+    elif ci == "":
+        import_lib("walk.py")
+    
     #allows plugins to be inputted
     elif ci == ".plugin":
         import_lib("plugin.py")
         
-
     #imports another script
     elif ci == ".hangman":
         print("hanf")
@@ -137,15 +142,19 @@ def check(ci):
         with open('plugin.config', 'r') as file:
             plugin_paths = [line.strip() for line in file]
 
+    #runs the check function in all installed plugins
     for path in plugin_paths:
-        module = import_from_path(path)
-        if hasattr(module, 'check'):
-            module.check(ci)
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'check'):
+                module.check(ci)
 
+    #updates the help text with the data from each plugin thats installed
     for path in plugin_paths:
-        module = import_from_path(path)
-        if hasattr(module, 'command_Text'):
-            command_Text.update(module.command_Text)
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'command_Text'):
+                command_Text.update(module.command_Text)
 
     #always returns true unless the script is ended
     return True
@@ -155,22 +164,36 @@ print(intro_Text)
 print("attempting to import the required data to update the config data...")
 import_lib("config.py")
 
+#prints the plugin active message for each installed plugin
 for path in plugin_paths:
     module = import_from_path(path)
     if hasattr(module, 'plugin_active_message'):
         print(module.plugin_active_message)
 
 while cont:
+    #resets all loaded plugin location data
+    if os.path.isfile("plugin.config"):
+        with open('plugin.config', 'r') as file:
+            plugin_paths = [line.strip() for line in file]
+
     print("-" *15)
-    for path in plugin_paths:
-        module = import_from_path(path)
-        if hasattr(module, 'dem'):
-            module.dem()
+
     ci = input("-")
     cont = check(ci);
 
+    #runs the dem function in each installed plugin
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'dem'):
+                module.dem()
+
+#runs the end function once the script is ended
 for path in plugin_paths:
-    module = import_from_path(path)
-    if hasattr(module, 'end'):
-        module.end()
+    if os.path.isfile(path):
+        module = import_from_path(path)
+        if hasattr(module, 'end'):
+            module.end()
+
+#cleans the excess files/folders
 clean()

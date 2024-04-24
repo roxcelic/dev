@@ -1,7 +1,17 @@
-import urllib.request
+import urllib
 import os
 import requests
 
+command_Text = {
+    ".plugin_install(<a plugin link>)": "replace '<a plugin link> with a plugin you would like to install'",
+    ".plugin_delte(<a local url>)": "replace '<a local url>' with a local file path to a plugin",
+    ".plugin_list": "prints an each plugin installed",
+    ".plugin_check": "prints plugin location values"
+}
+
+plugin_active_message = "plugin cleanup is active"
+
+#plugin management data
 folder_name = 'plugins/'
 folder_path = os.path.join(os.getcwd(), folder_name)
 
@@ -26,7 +36,8 @@ def check_url_exists(url):
             return False
     except requests.ConnectionError:
         return False
-
+    
+#plugin install script
 def install_plugins(url):
     if (check_url_exists(url)):
         global plugin_paths, file_paths
@@ -45,9 +56,11 @@ def install_plugins(url):
             with open('plugin.config', 'w') as file:
                 for item in file_paths:
                     file.write(f"{item}\n")
+            print("plugin installed")
     else:
-        print("the link returned nothing")
+        print("the link had no content to access")
 
+#plugin delete script
 def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
@@ -63,20 +76,28 @@ def delete_plugins(local_ci):
     else:
         print("sorry that plugin wasnt found")
 
-print("type 'delete' if you would like to delete a plugin or 'update' if you would like to update all of your plugins")
-ci = input("link- ")
+def start():
+    print("start")
 
-if ci == "delete":
-    print("pick the file you would like to delete")
-    for item in plugin_paths:
-        print(item)
-    local_ci = input("-")
-    delete_plugins(local_ci)
+def end():
+    print("end")
 
-elif ci == "update":
-    for item in plugin_paths:
-        delete_plugins(item)
-        install_plugins(item)
+def check(ci):
+    if ci[:16] == ".plugin_install(" and ci[-1:] == ")":
+        ci = ci[16:]
+        ci = ci[:-1]
+        install_plugins(ci)
 
-else:
-    install_plugins(ci)
+    if ci[:15] == ".plugin_delete(" and ci[-1:] == ")":
+        ci = ci[15:]
+        ci = ci[:-1]
+        delete_plugins(ci)
+
+    if ci == ".plugin_list":
+        print(plugin_paths)
+        for item in plugin_paths:
+            print(item)
+    
+    if ci == ".plugin_check":
+        print("plugin_paths: ",plugin_paths)
+        print("file_paths: ",file_paths)
