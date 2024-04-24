@@ -18,13 +18,16 @@ if os.path.isfile("plugin.config"):
         file_paths = [line.strip() for line in file]
 
 def check_url_exists(url):
-    try:
-        response = requests.head(url)
-        if response.status_code == 200:
-            return True
-        else:
+    if url[:8] == "https://" or url[:7] == "http://":
+        try:
+            response = requests.head(url)
+            if response.status_code == 200:
+                return True
+            else:
+                return False
+        except requests.ConnectionError:
             return False
-    except requests.ConnectionError:
+    else:
         return False
 
 def install_plugins(url):
