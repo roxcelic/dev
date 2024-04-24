@@ -72,7 +72,6 @@ def delete_plugins(local_ci):
             for item in file_paths:
                 file.write(f"{item}\n")
         os.remove(folder_name + local_ci[8:].replace("/", "."))
-        print("after deleting a plugin you may have to restart your client for it to update the help menu")
     else:
         print("sorry that plugin wasnt found")
 

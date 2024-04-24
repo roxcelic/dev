@@ -73,6 +73,33 @@ def import_lib(url):
         import_from_path("extra.py")
     else: print("- the option is always available -")
 
+def help():
+    command_Text2 = command_Text
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'command_Text'):
+                command_Text2.update(module.command_Text)
+    
+    print(help_Text)
+
+    for key, value in command_Text.items():
+        print(f"{key}: {value}")
+
+def help2(ci):
+    command_Text2 = command_Text
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'command_Text'):
+                command_Text2.update(module.command_Text)
+
+    if ci in command_Text2:
+        print(command_Text2[ci])
+    else:
+        print("sorry there is no help for command: ",'"',ci,'"')
+    
+
 #installs all loaded plugins
 if os.path.isfile("plugin.config"):
     with open('plugin.config', 'r') as file:
@@ -99,19 +126,7 @@ def check(ci):
 
     #provides user assistance
     elif ci == "?help":
-
-        command_Text2 = command_Text
-
-        for path in plugin_paths:
-            module = import_from_path(path)
-            if hasattr(module, 'command_Text'):
-                command_Text2.update(module.command_Text)
-
-        #prints the help Literal
-        print(help_Text)
-        #prints commands and what they do
-        for key, value in command_Text.items():
-            print(f"{key}: {value}")
+        help()
 
     #this is the help command which will return a value from command_Text relating to the command which was inquired about
     elif ci[:6] == "?help(" and ci[-1] == ")":
@@ -120,10 +135,7 @@ def check(ci):
         ci = ci[:-1]
 
         #checks if assistance can be provided (if the given value exists in the 'command_Text dict')
-        if ci in command_Text:
-            print(command_Text[ci])
-        else:
-            print("sorry there is no help for command: ",'"',ci,'"')
+        help2(ci)
     
     #runs the script walkthrough
     elif ci == "?walkThrough":
@@ -148,13 +160,6 @@ def check(ci):
             module = import_from_path(path)
             if hasattr(module, 'check'):
                 module.check(ci)
-
-    #updates the help text with the data from each plugin thats installed
-    for path in plugin_paths:
-        if os.path.isfile(path):
-            module = import_from_path(path)
-            if hasattr(module, 'command_Text'):
-                command_Text.update(module.command_Text)
 
     #always returns true unless the script is ended
     return True
