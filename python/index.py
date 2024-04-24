@@ -115,9 +115,6 @@ for path in plugin_paths:
     if hasattr(module, 'start'):
         module.start()
 
-with open('main.config', 'r') as file:
-    concent = int([line.strip() for line in file][2])
-
 #commands
 def check(ci):
     global plugin_paths
