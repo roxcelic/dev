@@ -6,7 +6,8 @@ command_Text = {
     ".plugin_install(<a plugin link>)": "replace '<a plugin link> with a plugin you would like to install'",
     ".plugin_delte(<a plugin link>)": "replace '<a plugin link>' with a local file path to a plugin",
     ".plugin_list": "prints an each plugin installed",
-    ".plugin_check": "prints plugin location values"
+    ".plugin_check": "prints plugin location values",
+    ".plugin_update": "updates the installed plugins"
 }
 
 plugin_active_message = "plugin cleanup is active"
@@ -103,20 +104,25 @@ def end():
 
             
 def check(ci):
-    if ci[:16] == ".plugin_install(" and ci[-1:] == ")":
+    if ci == ".plugin_update":
+        for item in plugin_paths:
+            delete_plugins(item)
+            install_plugins(item)
+
+    elif ci[:16] == ".plugin_install(" and ci[-1:] == ")":
         ci = ci[16:]
         ci = ci[:-1]
         install_plugins(ci)
 
-    if ci[:15] == ".plugin_delete(" and ci[-1:] == ")":
+    elif ci[:15] == ".plugin_delete(" and ci[-1:] == ")":
         ci = ci[15:]
         ci = ci[:-1]
         delete_plugins(ci)
 
-    if ci == ".plugin_list":
+    elif ci == ".plugin_list":
         for item in plugin_paths:
             print(item)
     
-    if ci == ".plugin_check":
+    elif ci == ".plugin_check":
         print("plugin_paths: ",plugin_paths)
         print("file_paths: ",file_paths)
