@@ -3,6 +3,7 @@ import os
 config_Content = {
     "version": "0.0.12",
     "build_num": "6"
+    "concent": "0"
 }
 
 whats_New = {
