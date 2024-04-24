@@ -167,7 +167,7 @@ def check(ci):
             localread[2] = concent
             with open('main.config',"w") as file:
                 for item in localread:
-                    file.write(item + "\n")
+                    file.write(str(item) + "\n")
                 file.write()
 
 
