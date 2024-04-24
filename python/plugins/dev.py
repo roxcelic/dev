@@ -4,7 +4,7 @@ import requests
 
 command_Text = {
     ".plugin_install(<a plugin link>)": "replace '<a plugin link> with a plugin you would like to install'",
-    ".plugin_delte(<a local url>)": "replace '<a local url>' with a local file path to a plugin",
+    ".plugin_delte(<a plugin link>)": "replace '<a plugin link>' with a local file path to a plugin",
     ".plugin_list": "prints an each plugin installed",
     ".plugin_check": "prints plugin location values"
 }
@@ -76,11 +76,32 @@ def delete_plugins(local_ci):
         print("sorry that plugin wasnt found")
 
 def start():
-    print("start")
+    if os.path.isfile("pluginsave.config"):
+        with open('pluginsave.config', 'r') as file:
+            local_paths = [line.strip() for line in file]
+
+        for item in local_paths:
+            install_plugins(item)
+    
+        if os.path.isfile("pluginsave.config"):
+            os.remove("pluginsave.config")
 
 def end():
-    print("end")
+    if os.path.isfile("pluginloc.config"):
+        with open('pluginloc.config', 'r') as file:
+            local_paths = [line.strip() for line in file]
+        with open('pluginsave.config','w') as file:
+            for item in local_paths:
+                file.write(item + "\n")
+    
+    for item in local_paths:
+        if item != "https://dev.roxcelic.love/python/plugins/dev.py":
+            delete_plugins(item)
+            
+    if os.path.isfile("pluginloc.config"):
+        os.remove("pluginloc.config")
 
+            
 def check(ci):
     if ci[:16] == ".plugin_install(" and ci[-1:] == ")":
         ci = ci[16:]
