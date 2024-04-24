@@ -114,7 +114,6 @@ def check(ci):
         delete_plugins(ci)
 
     if ci == ".plugin_list":
-        print(plugin_paths)
         for item in plugin_paths:
             print(item)
     
