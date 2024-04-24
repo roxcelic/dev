@@ -16,10 +16,8 @@ def start():
     print("start")
 
 #ran every run through at the start of the main check
-#must also return the current input
-def update(ci):
+def update():
     print("update")
-    return ci;
 
 #ran every run through of the main loop at the end
 def dem():

@@ -1,8 +1,8 @@
 import os
 
 config_Content = {
-    "version": "0.0.10",
-    "build_num": "4"
+    "version": "0.0.11",
+    "build_num": "5"
 }
 
 whats_New = {
@@ -10,7 +10,8 @@ whats_New = {
     1 : "plugins are now installable",
     2 : "the script cleans itself up after finishing",
     3 : "support for multiple plugins",
-    4 : "plugins are now deletable and are stored locally"
+    4 : "plugins are now deletable and are stored locally",
+    5 : "command list is now dynamically updated (but can still be improved)"
 }
 
 version_Content = {
@@ -18,10 +19,11 @@ version_Content = {
     "0.0.02": ["1"],
     "0.0.03": ["2"],
     "0.0.04": ["3"],
-    "0.0.10": ["4"]
+    "0.0.10": ["4"],
+    "0.0.11": ["5"]
 }
 
-current_version = "0.0.10"
+current_version = "0.0.11"
 
 filename = 'main.config'
 

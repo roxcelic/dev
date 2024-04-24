@@ -126,7 +126,7 @@ def check(ci):
             print("sorry there is no help for command: ",'"',ci,'"')
     
     #runs the script walkthrough
-    elif ci == "":
+    elif ci == "?walkThrough":
         import_lib("walk.py")
     
     #allows plugins to be inputted
