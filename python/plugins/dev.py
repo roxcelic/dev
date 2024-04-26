@@ -91,7 +91,9 @@ def delete_plugins(local_ci):
             
 def check(ci):
     if ci == ".plugin_update":
-        for item in plugin_paths:
+        local_list = []
+        for item in plugin_paths: local_list.append(item)
+        for item in local_list:
             delete_plugins(item)
             install_plugins(item)
 
