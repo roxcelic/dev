@@ -62,7 +62,7 @@ def install_plugins(url):
                 os.makedirs(folder_path)
             file_name = url[8:].replace("/", ".")
             file_name = folder_path + file_name
-            urllib.request.urlretrieve(url, full_path + file_name)
+            urllib.request.urlretrieve(url, file_name)
             file_name =  full_path + file_name.replace(os.getcwd(), "").replace("\\", "")
             file_paths.append(file_name)
             with open(full_path + 'pluginloc.config', 'w') as file:
