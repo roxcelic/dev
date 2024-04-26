@@ -14,16 +14,14 @@ full_path = full_path + "/"
 
 #removes all 'bad' data
 def clean():
-    if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
-        shutil.rmtree("__pycache__")
-    if os.path.exists("plugins/__pycache__") and os.path.isdir("plugins/__pycache__"):
-        shutil.rmtree("plugins/__pycache__")
-    if os.path.exists("script.py"):
-            os.remove("script.py")
-    if os.path.exists("extra.py"):
-            os.remove("extra.py")
-    if os.path.exists("plug.py"):
-            os.remove("plug.py")
+    if os.path.exists(full_path + "__pycache__") and os.path.isdir(full_path + "__pycache__"):
+        shutil.rmtree(full_path + "__pycache__")
+    if os.path.exists(full_path + "plugins/__pycache__") and os.path.isdir(full_path + "plugins/__pycache__"):
+        shutil.rmtree(full_path + "plugins/__pycache__")
+    if os.path.exists(full_path + "extra.py"):
+            os.remove(full_path + "extra.py")
+    if os.path.exists(full_path + "plug.py"):
+            os.remove(full_path + "plug.py")
 
 clean()
 

@@ -69,10 +69,10 @@ def install_plugins(url):
             if file_name not in file_paths:
                 file_paths.append(file_name)
 
-            with open('pluginloc.config', 'w') as file:
+            with open(full_path + 'pluginloc.config', 'w') as file:
                 for item in plugin_paths:
                     file.write(f"{item}\n")
-            with open('plugin.config', 'w') as file:
+            with open(full_path + 'plugin.config', 'w') as file:
                 for item in file_paths:
                     file.write(f"{item}\n")
             print("plugin installed")
@@ -85,10 +85,10 @@ def delete_plugins(local_ci):
         plugin_paths.remove(local_ci)
         file_paths.remove(folder_name + local_ci[8:].replace("/", "."))
 
-        with open('pluginloc.config', 'w') as file:
+        with open(full_path + 'pluginloc.config', 'w') as file:
             for item in plugin_paths:
                 file.write(f"{item}\n")
-        with open('plugin.config', 'w') as file:
+        with open(full_path + 'plugin.config', 'w') as file:
             for item in file_paths:
                 file.write(f"{item}\n")
 
@@ -97,21 +97,21 @@ def delete_plugins(local_ci):
         print("sorry that plugin wasnt found")
 
 def start():
-    if os.path.isfile("pluginsave.config"):
-        with open('pluginsave.config', 'r') as file:
+    if os.path.isfile(full_path + "pluginsave.config"):
+        with open(full_path + 'pluginsave.config', 'r') as file:
             local_paths = [line.strip() for line in file]
 
         for item in local_paths:
             install_plugins(item)
     
-        if os.path.isfile("pluginsave.config"):
-            os.remove("pluginsave.config")
+        if os.path.isfile(full_path + "pluginsave.config"):
+            os.remove(full_path + "pluginsave.config")
 
 def end():
-    if os.path.isfile("pluginloc.config"):
-        with open('pluginloc.config', 'r') as file:
+    if os.path.isfile(full_path + "pluginloc.config"):
+        with open(full_path + 'pluginloc.config', 'r') as file:
             local_paths = [line.strip() for line in file]
-        with open('pluginsave.config','w') as file:
+        with open(full_path + 'pluginsave.config','w') as file:
             for item in local_paths:
                 file.write(item + "\n")
     
@@ -119,8 +119,8 @@ def end():
         if item != "https://dev.roxcelic.love/python/plugins/dev.py":
             delete_plugins(item)
             
-    if os.path.isfile("pluginloc.config"):
-        os.remove("pluginloc.config")
+    if os.path.isfile(full_path + "pluginloc.config"):
+        os.remove(full_path + "pluginloc.config")
 
             
 def check(ci):
