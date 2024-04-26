@@ -63,14 +63,14 @@ def install_plugins(url):
 def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
-        file_paths.remove(full_path + folder_name + local_ci[8:].replace("/", "."))
+        file_paths.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
         with open(full_path + 'pluginloc.config', 'w') as file:
             for item in plugin_paths:
                 file.write(f"{item}\n")
         with open(full_path + 'plugin.config', 'w') as file:
             for item in file_paths:
                 file.write(f"{item}\n")
-        os.remove(folder_name + local_ci[8:].replace("/", "."))
+        os.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
     else:
         print("sorry that plugin wasnt found")
 

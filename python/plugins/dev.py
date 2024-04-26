@@ -57,42 +57,35 @@ def install_plugins(url):
         global plugin_paths, file_paths
         if url not in plugin_paths:
             plugin_paths.append(url)
-
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-
+            if not os.path.exists(full_path + folder_path):
+                os.makedirs(full_path + folder_path)
             file_name = url[8:].replace("/", ".")
             file_name = folder_path + file_name
-            urllib.request.urlretrieve(url, file_name)
-            file_name = file_name.replace(os.getcwd(), "").replace("\\", "")
-
-            if file_name not in file_paths:
-                file_paths.append(file_name)
-
+            urllib.request.urlretrieve(url, full_path + file_name)
+            file_name =  full_path + file_name.replace(os.getcwd(), "").replace("\\", "")
+            file_paths.append(file_name)
             with open(full_path + 'pluginloc.config', 'w') as file:
                 for item in plugin_paths:
                     file.write(f"{item}\n")
             with open(full_path + 'plugin.config', 'w') as file:
                 for item in file_paths:
+                    item = item.replace("\\","/")
                     file.write(f"{item}\n")
-            print("plugin installed")
     else:
-        print("the link had no content to access")
+        print("the link returned nothing")
 
 #plugin delete script
 def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
-        file_paths.remove(full_path + folder_name + local_ci[8:].replace("/", "."))
-
+        file_paths.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
         with open(full_path + 'pluginloc.config', 'w') as file:
             for item in plugin_paths:
                 file.write(f"{item}\n")
         with open(full_path + 'plugin.config', 'w') as file:
             for item in file_paths:
                 file.write(f"{item}\n")
-
-        os.remove(folder_name + local_ci[8:].replace("/", "."))
+        os.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
     else:
         print("sorry that plugin wasnt found")
 
