@@ -57,9 +57,8 @@ def install_plugins(url):
         global plugin_paths, file_paths
         if url not in plugin_paths:
             plugin_paths.append(url)
-            if not os.path.exists(full_path + folder_path):
-                print(full_path + folder_path)
-                os.makedirs(full_path + folder_path)
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
             file_name = url[8:].replace("/", ".")
             file_name = folder_path + file_name
             urllib.request.urlretrieve(url, full_path + file_name)
