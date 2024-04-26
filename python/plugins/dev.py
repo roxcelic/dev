@@ -111,9 +111,11 @@ def end():
             for item in local_paths:
                 file.write(item + "\n")
     
-    for item in local_paths:
-        if item != "https://dev.roxcelic.love/python/plugins/dev.py":
-            delete_plugins(item)
+    with open(full_path + 'pluginloc.config', 'r') as file:
+        local_paths = [line.strip() for line in file]
+        for item in local_paths:
+            if item != "https://dev.roxcelic.love/python/plugins/dev.py":
+                delete_plugins(item)
             
     if os.path.isfile(full_path + "pluginloc.config"):
         os.remove(full_path + "pluginloc.config")
