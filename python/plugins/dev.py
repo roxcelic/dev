@@ -88,39 +88,6 @@ def delete_plugins(local_ci):
         os.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
     else:
         print("sorry that plugin wasnt found")
-
-def start():
-    print("plugin cleanup install running...")
-    if os.path.isfile(full_path + "pluginsave.config"):
-        with open(full_path + 'pluginsave.config', 'r') as file:
-            local_paths = [line.strip() for line in file]
-
-        for item in local_paths:
-            install_plugins(item)
-    
-        if os.path.isfile(full_path + "pluginsave.config"):
-            os.remove(full_path + "pluginsave.config")
-    print("plugin cleanup install finished")
-
-def end():
-    print("plugin cleanup delete running...")
-    if os.path.isfile(full_path + "pluginloc.config"):
-        with open(full_path + 'pluginloc.config', 'r') as file:
-            local_paths = [line.strip() for line in file]
-        with open(full_path + 'pluginsave.config','w') as file:
-            for item in local_paths:
-                file.write(item + "\n")
-    
-    with open(full_path + 'pluginloc.config', 'r') as file:
-        local_paths = [line.strip() for line in file]
-        for item in local_paths:
-            if item != "https://dev.roxcelic.love/python/plugins/dev.py":
-                delete_plugins(item)
-            
-    if os.path.isfile(full_path + "pluginloc.config"):
-        os.remove(full_path + "pluginloc.config")
-    print("plugin cleanup delete finished")
-
             
 def check(ci):
     if ci == ".plugin_update":

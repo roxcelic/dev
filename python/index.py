@@ -206,12 +206,6 @@ def check(ci):
         local_input = input("would you like to automatically give concent to all downloads? (n/y) ")
         if local_input.lower() == "y":
             concent = 1
-            with open('main.config',"r") as file:
-                localread = [line.strip() for line in file]
-            localread[2] = concent
-            with open('main.config',"w") as file:
-                for item in localread:
-                    file.write(str(item) + "\n")
 
 
     if os.path.isfile(full_path + "plugin.config"):

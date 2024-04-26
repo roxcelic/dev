@@ -9,9 +9,8 @@ if not os.path.exists(full_path):
 full_path = full_path + "/"
 
 config_Content = {
-    "version": "0.0.12",
-    "build_num": "6",
-    "concent": "0"
+    "version": "0.0.13",
+    "build_num": "7",
 }
 
 whats_New = {
@@ -21,7 +20,8 @@ whats_New = {
     3 : "support for multiple plugins",
     4 : "plugins are now deletable and are stored locally",
     5 : "command list is now dynamically updated (but can still be improved)",
-    6 : "download concent can now be skipped"
+    6 : "download concent can now be skipped",
+    7 : "concent improvement"
 }
 
 version_Content = {
@@ -31,10 +31,11 @@ version_Content = {
     "0.0.04": ["3"],
     "0.0.10": ["4"],
     "0.0.11": ["5"],
-    "0.0.12": ["6","0"]
+    "0.0.12": ["6","0"],
+    "0.0.13": ["7"]
 }
 
-current_version = "0.0.11"
+current_version = "0.0.13"
 
 filename = 'main.config'
 filename = full_path + filename
