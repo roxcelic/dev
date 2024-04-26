@@ -53,17 +53,17 @@ help_Text = '''
         here are some commands you can use to get started:
 '''
 
-#basic dicts
+#basic divs
 command_Text = {
-    "?help": "this command prints the help literal giving the user information",
-    "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
-    "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
-    ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
-    ".plugin": "allows you to install a 3rd party plugin",
-    ".activeEffects": "prints all the active effects from plugins which support effects",
-    ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
-    ".end": "this command ends the script"
-}
+        "?help": "this command prints the help literal giving the user information",
+        "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
+        "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
+        ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
+        ".plugin": "allows you to install a 3rd party plugin",
+        ".activeEffects": "prints all the active effects from plugins which support effects",
+        ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
+        ".end": "this command ends the script"
+    }
 
 #module command runner
 def start():
@@ -135,7 +135,7 @@ def import_lib(url):
     else: print("- the option is always available -")
 
 def help():
-    command_Text2 = command_Text
+    command_Text2 = reset()
     for path in plugin_paths:
         if os.path.isfile(path):
             module = import_from_path(path)
@@ -148,7 +148,7 @@ def help():
         print(f"{key}: {value}")
 
 def help2(ci):
-    command_Text2 = command_Text
+    command_Text2 = reset()
     for path in plugin_paths:
         if os.path.isfile(path):
             module = import_from_path(path)
@@ -169,6 +169,19 @@ if os.path.isfile(full_path + "plugin.config"):
 start()
 
 #commands
+def reset():
+    command_Text = {
+        "?help": "this command prints the help literal giving the user information",
+        "?help(<a command>)": "swapping out '<a command>' for a command you would like to search for will tell you about that command and only that command",
+        "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
+        ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
+        ".plugin": "allows you to install a 3rd party plugin",
+        ".activeEffects": "prints all the active effects from plugins which support effects",
+        ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
+        ".end": "this command ends the script"
+    }
+    return command_Text
+
 def check(ci):
     global plugin_paths
 
