@@ -10,7 +10,7 @@ folder_name = 'YourAppName'
 full_path = os.path.join(local_app_data_path, folder_name)
 if not os.path.exists(full_path):
     os.makedirs(full_path)
-full_path = full_path + "/"
+full_path = full_path + "\\"
 
 #removes all 'bad' data
 def clean():
@@ -65,13 +65,52 @@ command_Text = {
     ".end": "this command ends the script"
 }
 
+#module command runner
+def start():
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'start'):
+            module.start()
+
+def update():
+    for path in plugin_paths:
+        if os.path.isfile(full_path + path):
+            module = import_from_path(path)
+            if hasattr(module, 'update'):
+                module.update()
+
+def plug_check(ci):
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'check'):
+                module.check(ci)
+
+def plugin_active():
+    for path in plugin_paths:
+        module = import_from_path(path)
+        if hasattr(module, 'plugin_active_message'):
+            print(module.plugin_active_message)
+
+def dem():
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'dem'):
+                module.dem()
+
+def end():
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'end'):
+                module.end()
+
 #imports
 
-def import_from_path(path):
-    print(path)
-    module_name = os.path.basename(path).replace('.py', '')
-    print(module_name)
-    spec = importlib.util.spec_from_file_location(module_name, path)
+def import_from_path(file_path):
+    module_name = os.path.basename(file_path).replace('.py', '')
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -83,7 +122,6 @@ def import_lib(url):
     if local_input.lower() == "y":
         url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = full_path + "/extra.py"
-        print(file_name)
         urllib.request.urlretrieve(url, file_name)
         import_from_path(file_name)
     else: print("- the option is always available -")
@@ -116,25 +154,18 @@ def help2(ci):
     
 
 #installs all loaded plugins
-if os.path.isfile(full_path + "pluign.config"):
+if os.path.isfile(full_path + "plugin.config"):
     with open(full_path + 'plugin.config', 'r') as file:
         plugin_paths = [line.strip() for line in file]
 
-for path in plugin_paths:
-    module = import_from_path(path)
-    if hasattr(module, 'start'):
-        module.start()
+start()
 
 #commands
 def check(ci):
     global plugin_paths
 
     #runs the update function in all of the installed plugins
-    for path in plugin_paths:
-        if os.path.isfile(full_path + path):
-            module = import_from_path(path)
-            if hasattr(module, 'update'):
-                module.update()
+    update()
 
     #ends the script
     if ci == ".end": return False
@@ -169,7 +200,6 @@ def check(ci):
         
     #imports another script
     elif ci == ".hangman":
-        print("hanf")
         import_lib("hangman.py")
 
     if ci == ".concent":
@@ -184,16 +214,12 @@ def check(ci):
                     file.write(str(item) + "\n")
 
 
-    if os.path.isfile("plugin.config"):
-        with open('plugin.config', 'r') as file:
+    if os.path.isfile(full_path + "plugin.config"):
+        with open(full_path + 'plugin.config', 'r') as file:
             plugin_paths = [line.strip() for line in file]
 
     #runs the check function in all installed plugins
-    for path in plugin_paths:
-        if os.path.isfile(path):
-            module = import_from_path(path)
-            if hasattr(module, 'check'):
-                module.check(ci)
+    plug_check(ci)
 
     #always returns true unless the script is ended
     return True
@@ -204,16 +230,9 @@ print("attempting to import the required data to update the config data...")
 import_lib("config.py")
 
 #prints the plugin active message for each installed plugin
-for path in plugin_paths:
-    module = import_from_path(path)
-    if hasattr(module, 'plugin_active_message'):
-        print(module.plugin_active_message)
+plugin_active()
 
 while cont:
-    #resets all loaded plugin location data
-    if os.path.isfile("plugin.config"):
-        with open('plugin.config', 'r') as file:
-            plugin_paths = [line.strip() for line in file]
 
     print("-" *15)
 
@@ -221,18 +240,10 @@ while cont:
     cont = check(ci);
 
     #runs the dem function in each installed plugin
-    for path in plugin_paths:
-        if os.path.isfile(path):
-            module = import_from_path(path)
-            if hasattr(module, 'dem'):
-                module.dem()
+    dem()
 
 #runs the end function once the script is ended
-for path in plugin_paths:
-    if os.path.isfile(path):
-        module = import_from_path(path)
-        if hasattr(module, 'end'):
-            module.end()
+end()
 
 #cleans the excess files/folders
 clean()
