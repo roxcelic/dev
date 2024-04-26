@@ -4,7 +4,7 @@ import requests
 
 #gets the save folder from local app data
 local_app_data_path = os.getenv('LOCALAPPDATA')
-folder_name = 'YourAppName'
+folder_name = 'shards'
 full_path = os.path.join(local_app_data_path, folder_name)
 if not os.path.exists(full_path):
     os.makedirs(full_path)

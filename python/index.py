@@ -12,6 +12,9 @@ if not os.path.exists(full_path):
     os.makedirs(full_path)
 full_path = full_path + "\\"
 
+folder_name = 'plugins/'
+folder_path =  folder_name
+
 #removes all 'bad' data
 def clean():
     if os.path.exists(full_path + "__pycache__") and os.path.isdir(full_path + "__pycache__"):
