@@ -63,6 +63,7 @@ def install_plugins(url):
 def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
+        print(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
         file_paths.remove(full_path.replace("\\","/") + folder_name + local_ci[8:].replace("/", "."))
         with open(full_path + 'pluginloc.config', 'w') as file:
             for item in plugin_paths:
@@ -85,7 +86,9 @@ if ci == "delete":
     delete_plugins(local_ci)
 
 elif ci == "update":
-    for item in plugin_paths:
+    local_list = []
+    for item in plugin_paths: local_list.append(item)
+    for item in local_list:
         delete_plugins(item)
         install_plugins(item)
 
