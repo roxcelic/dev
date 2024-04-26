@@ -11,7 +11,7 @@ if not os.path.exists(full_path):
 full_path = full_path + "/"
 
 folder_name = 'plugins/'
-folder_path =  folder_name
+folder_path =  full_path + folder_name
 
 file_paths = []
 
