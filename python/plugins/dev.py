@@ -2,6 +2,14 @@ import urllib
 import os
 import requests
 
+#gets the save folder from local app data
+local_app_data_path = os.getenv('LOCALAPPDATA')
+folder_name = 'YourAppName'
+full_path = os.path.join(local_app_data_path, folder_name)
+if not os.path.exists(full_path):
+    os.makedirs(full_path)
+full_path = full_path + "/"
+
 command_Text = {
     ".plugin_install(<a plugin link>)": "replace '<a plugin link> with a plugin you would like to install'",
     ".plugin_delte(<a plugin link>)": "replace '<a plugin link>' with a local file path to a plugin",
@@ -16,18 +24,18 @@ plugin_active_message = "plugin cleanup is active"
 
 #plugin management data
 folder_name = 'plugins/'
-folder_path = os.path.join(os.getcwd(), folder_name)
+folder_path = full_path + folder_name
 
 file_paths = []
 
 plugin_paths = []
 
-if os.path.isfile("pluginloc.config"):
-    with open('pluginloc.config', 'r') as file:
+if os.path.isfile(full_path + "pluginloc.config"):
+    with open(full_path + 'pluginloc.config', 'r') as file:
         plugin_paths = [line.strip() for line in file]
 
-if os.path.isfile("plugin.config"):
-    with open('plugin.config', 'r') as file:
+if os.path.isfile(full_path + "plugin.config"):
+    with open(full_path + 'plugin.config', 'r') as file:
         file_paths = [line.strip() for line in file]
 
 def check_url_exists(url):

@@ -17,12 +17,12 @@ file_paths = []
 
 plugin_paths = []
 
-if os.path.isfile("pluginloc.config"):
-    with open('pluginloc.config', 'r') as file:
+if os.path.isfile(full_path + "pluginloc.config"):
+    with open(full_path + 'pluginloc.config', 'r') as file:
         plugin_paths = [line.strip() for line in file]
 
-if os.path.isfile("plugin.config"):
-    with open('plugin.config', 'r') as file:
+if os.path.isfile(full_path + "plugin.config"):
+    with open(full_path + 'plugin.config', 'r') as file:
         file_paths = [line.strip() for line in file]
 
 def check_url_exists(url):

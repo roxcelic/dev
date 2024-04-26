@@ -1,5 +1,13 @@
 import os
 
+#gets the save folder from local app data
+local_app_data_path = os.getenv('LOCALAPPDATA')
+folder_name = 'YourAppName'
+full_path = os.path.join(local_app_data_path, folder_name)
+if not os.path.exists(full_path):
+    os.makedirs(full_path)
+full_path = full_path + "/"
+
 config_Content = {
     "version": "0.0.12",
     "build_num": "6",
@@ -29,6 +37,7 @@ version_Content = {
 current_version = "0.0.11"
 
 filename = 'main.config'
+filename = full_path + filename
 
 def whatsnew(item):
     print("-"*5, "whats new", "-"*5)
