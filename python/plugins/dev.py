@@ -24,7 +24,7 @@ plugin_active_message = "plugin cleanup is active"
 
 #plugin management data
 folder_name = 'plugins/'
-folder_path = full_path + folder_name
+folder_path =  folder_name
 
 file_paths = []
 
@@ -57,12 +57,12 @@ def install_plugins(url):
         global plugin_paths, file_paths
         if url not in plugin_paths:
             plugin_paths.append(url)
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
+            if not os.path.exists(full_path + folder_path):
+                os.makedirs(full_path + folder_path)
             file_name = url[8:].replace("/", ".")
-            file_name = "/plugins/" + file_name
-            urllib.request.urlretrieve(url,full_path + file_name)
-            file_name = file_name.replace(os.getcwd(), "").replace("\\", "")
+            file_name = folder_path + file_name
+            urllib.request.urlretrieve(url, full_path + file_name)
+            file_name =  full_path + file_name.replace(os.getcwd(), "").replace("\\", "")
             file_paths.append(file_name)
             with open(full_path + 'pluginloc.config', 'w') as file:
                 for item in plugin_paths:
