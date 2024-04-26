@@ -106,6 +106,14 @@ def end():
             if hasattr(module, 'end'):
                 module.end()
 
+def updatecommand():
+    command_Text2 = command_Text
+    for path in plugin_paths:
+        if os.path.isfile(path):
+            module = import_from_path(path)
+            if hasattr(module, 'command_Text'):
+                command_Text2.update(module.command_Text)
+
 #imports
 
 def import_from_path(file_path):
@@ -136,7 +144,7 @@ def help():
     
     print(help_Text)
 
-    for key, value in command_Text.items():
+    for key, value in command_Text2.items():
         print(f"{key}: {value}")
 
 def help2(ci):
