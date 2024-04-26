@@ -60,6 +60,7 @@ command_Text = {
         "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
         ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
         ".plugin": "allows you to install a 3rd party plugin",
+        ".read_plugin": "allows you to read the content from any installed plugin",
         ".activeEffects": "prints all the active effects from plugins which support effects",
         ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
         ".end": "this command ends the script"
@@ -211,6 +212,16 @@ def check(ci):
     #allows plugins to be inputted
     elif ci == ".plugin":
         import_lib("plugin.py")
+
+    #allows reading of plugins
+    elif ci == ".read_plugin":
+        for item in plugin_paths: print(item.replace(full_path.replace("\\","/"), ""))
+        print("what plugin would you like to read?")
+        local_ci = input("-")
+        if os.path.isfile(full_path.replace("\\","/") + local_ci):
+            with open(full_path.replace("\\","/") + local_ci, "r")as file:
+                file = file.readlines()
+                for item in file: print(item.replace("\n",""))
 
     #prints the plugin effects
     elif ci == ".activeEffects":
