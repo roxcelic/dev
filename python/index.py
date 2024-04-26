@@ -177,6 +177,7 @@ def reset():
         "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
         ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
         ".plugin": "allows you to install a 3rd party plugin",
+        ".read_plugin": "allows you to read the content from any installed plugin",
         ".activeEffects": "prints all the active effects from plugins which support effects",
         ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
         ".end": "this command ends the script"
