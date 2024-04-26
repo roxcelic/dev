@@ -68,7 +68,9 @@ command_Text = {
 #imports
 
 def import_from_path(path):
+    print(path)
     module_name = os.path.basename(path).replace('.py', '')
+    print(module_name)
     spec = importlib.util.spec_from_file_location(module_name, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -81,6 +83,7 @@ def import_lib(url):
     if local_input.lower() == "y":
         url = "https://dev.roxcelic.love/python/scripts/" + url
         file_name = full_path + "/extra.py"
+        print(file_name)
         urllib.request.urlretrieve(url, file_name)
         import_from_path(file_name)
     else: print("- the option is always available -")

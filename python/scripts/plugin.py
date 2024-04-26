@@ -50,10 +50,10 @@ def install_plugins(url):
             urllib.request.urlretrieve(url, file_name)
             file_name = file_name.replace(os.getcwd(), "").replace("\\", "")
             file_paths.append(file_name)
-            with open('pluginloc.config', 'w') as file:
+            with open(full_path + 'pluginloc.config', 'w') as file:
                 for item in plugin_paths:
                     file.write(f"{item}\n")
-            with open('plugin.config', 'w') as file:
+            with open(full_path + 'plugin.config', 'w') as file:
                 for item in file_paths:
                     file.write(f"{item}\n")
     else:
@@ -63,10 +63,10 @@ def delete_plugins(local_ci):
     if local_ci in plugin_paths:
         plugin_paths.remove(local_ci)
         file_paths.remove(folder_name + local_ci[8:].replace("/", "."))
-        with open('pluginloc.config', 'w') as file:
+        with open(full_path + 'pluginloc.config', 'w') as file:
             for item in plugin_paths:
                 file.write(f"{item}\n")
-        with open('plugin.config', 'w') as file:
+        with open(full_path + 'plugin.config', 'w') as file:
             for item in file_paths:
                 file.write(f"{item}\n")
         os.remove(folder_name + local_ci[8:].replace("/", "."))
