@@ -4,6 +4,14 @@ import importlib.util
 import shutil
 import os
 
+#gets the save folder from local app data
+local_app_data_path = os.getenv('LOCALAPPDATA')
+folder_name = 'YourAppName'
+full_path = os.path.join(local_app_data_path, folder_name)
+if not os.path.exists(full_path):
+    os.makedirs(full_path)
+full_path = full_path + "/"
+
 #removes all 'bad' data
 def clean():
     if os.path.exists("__pycache__") and os.path.isdir("__pycache__"):
@@ -54,6 +62,7 @@ command_Text = {
     "?walkThrough": "runs a walkthrough of the script and all of its functions, goals and abilties",
     ".hangman": "runs hangman from another downloaded script which should be located at 'extra.py'",
     ".plugin": "allows you to install a 3rd party plugin",
+    ".activeEffects": "prints all the active effects from plugins which support effects",
     ".concent": "applys concent automatically, only works during the run it was ran due to saftey",
     ".end": "this command ends the script"
 }
@@ -73,9 +82,9 @@ def import_lib(url):
     else: local_input = input("- this will download an extra lib as extra.py are you sure you would like to do this (y/n) -")
     if local_input.lower() == "y":
         url = "https://dev.roxcelic.love/python/scripts/" + url
-        file_name = "extra.py"
+        file_name = full_path + "/extra.py"
         urllib.request.urlretrieve(url, file_name)
-        import_from_path("extra.py")
+        import_from_path(file_name)
     else: print("- the option is always available -")
 
 def help():
@@ -106,8 +115,8 @@ def help2(ci):
     
 
 #installs all loaded plugins
-if os.path.isfile("plugin.config"):
-    with open('plugin.config', 'r') as file:
+if os.path.isfile(full_path + "pluign.config"):
+    with open(full_path + 'plugin.config', 'r') as file:
         plugin_paths = [line.strip() for line in file]
 
 for path in plugin_paths:
@@ -121,7 +130,7 @@ def check(ci):
 
     #runs the update function in all of the installed plugins
     for path in plugin_paths:
-        if os.path.isfile(path):
+        if os.path.isfile(full_path + path):
             module = import_from_path(path)
             if hasattr(module, 'update'):
                 module.update()
@@ -149,6 +158,13 @@ def check(ci):
     #allows plugins to be inputted
     elif ci == ".plugin":
         import_lib("plugin.py")
+
+    #prints the plugin effects
+    elif ci == ".activeEffects":
+        for path in plugin_paths:
+            module = import_from_path(path)
+            if hasattr(module, 'effects'):
+                print(module.effects)
         
     #imports another script
     elif ci == ".hangman":

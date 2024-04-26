@@ -6,6 +6,9 @@ command_Text = {
 #this is the message that will print when the plugin is put in the active state at the start of the script
 plugin_active_message = "hey"
 
+#and effects message which will tell the script user what is active
+effects = "plug, dev - whatever youd like to have active"
+
 #add the commands here
 def check(input):
     global plugin_active_message

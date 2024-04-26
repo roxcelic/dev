@@ -2,8 +2,16 @@ import urllib.request
 import os
 import requests
 
+#gets the save folder from local app data
+local_app_data_path = os.getenv('LOCALAPPDATA')
+folder_name = 'YourAppName'
+full_path = os.path.join(local_app_data_path, folder_name)
+if not os.path.exists(full_path):
+    os.makedirs(full_path)
+full_path = full_path + "/"
+
 folder_name = 'plugins/'
-folder_path = os.path.join(os.getcwd(), folder_name)
+folder_path = full_path + folder_name
 
 file_paths = []
 

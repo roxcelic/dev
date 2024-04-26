@@ -1,4 +1,7 @@
 import random
+
+effects = "endmessage, endmessages - prints a randomised message at the end of every command"
+
 firsword = [
     "quick", "lazy", "sleepy", "noisy", "hungry", "scary", "spooky", "silly",
     "messy", "lucky", "happy", "sad", "angry", "tiny", "huge", "giant",

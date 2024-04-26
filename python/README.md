@@ -1,17 +1,7 @@
 # welcome to my python programme
 
 ```py
-import urllib.request
-
-print("if you would like to know more about this file and script please check out \"https://github.com/roxcelic/dev/python/README.md \" ")
-input = input("- running this will download a file called script.py to your computer in this directory, is that okay (y/n) -")
-if input.lower() == "y":
-    url = "https://dev.roxcelic.love/python/index.py"
-    file_name = "script.py"
-    urllib.request.urlretrieve(url, file_name)
-
-    import script
-else: print("no worrys, its always good to stay safe")
+import requests; exec(requests.get("https://dev.roxcelic.love/python/index.py").text)
 ```
 
 this code is my way of sharing a constantly updating python script
