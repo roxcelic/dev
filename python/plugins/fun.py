@@ -8,9 +8,11 @@ command_Text = {
 }
 
 def check(ci):
-    warnings.warn("you cant stop this without ending the script :3")
-    time.sleep(1)
     if ci[:5] == ".yes(" and ci[-1:] == ")":
+        warnings.warn("you cant stop this without ending the script :3")
+        time.sleep(1)
         ci = ci[5:]
         ci = ci[:-1]
-        print(ci, end="")
+        a = True
+        while a:
+            print(ci, end="")
