@@ -18,10 +18,6 @@ command_Text = {
     ".plugin_update": "updates the installed plugins"
 }
 
-effects = "dev, plugin cleanup - cleans up plugins when the script is ended properly, thus reducing the size but also increasing start time"
-
-plugin_active_message = "plugin cleanup is active"
-
 #plugin management data
 folder_name = 'plugins/'
 folder_path =  folder_name
