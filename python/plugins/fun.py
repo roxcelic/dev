@@ -16,3 +16,4 @@ def check(ci):
         a = True
         while a:
             print(ci, end="")
+            time.sleep(0.02)
