@@ -10,10 +10,10 @@ command_Text = {
 def check(ci):
     if ci[:5] == ".yes(" and ci[-1:] == ")":
         warnings.warn("you cant stop this without ending the script :3")
+        warnings.warn("for anyone who needs extra help its 'ctrl + c'")
         time.sleep(1)
         ci = ci[5:]
         ci = ci[:-1]
         a = True
         while a:
             print(ci, end="")
-            time.sleep(0.02)
